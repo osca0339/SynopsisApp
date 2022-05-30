@@ -22,12 +22,12 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/oahemmingsen/Desktop/Synopse/SynopsisApp/SynopsisApp/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+[C:/Users/oahemmingsen/Desktop/Synopse/SynopsisApp/SynopsisApp/Pages/AllSeasons.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWxsU2Vhc29ucy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/oahemmingsen/Desktop/Synopse/SynopsisApp/SynopsisApp/Pages/FetchData.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+[C:/Users/oahemmingsen/Desktop/Synopse/SynopsisApp/SynopsisApp/Pages/CurrentSeason.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VycmVudFNlYXNvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/oahemmingsen/Desktop/Synopse/SynopsisApp/SynopsisApp/Pages/Index.razor]

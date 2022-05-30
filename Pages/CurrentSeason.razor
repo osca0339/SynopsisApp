@@ -1,0 +1,70 @@
+﻿@page "/currentseason"
+@using SynopsisApp.Models
+@using System.Web
+@using SynopsisApp.Services
+@inject IRacesService RaceService
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Current Season</PageTitle>
+
+<div class="container bg-dark">
+    @if(Races == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <h1 class="text-light">Current Season</h1>
+        <div>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Race Name</th>
+                    <th scope="col">Circuit</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var race in Races)
+               {
+                   <tr @onclick="() => GoToRaceUrl(race.Url)">
+                       <td>@race.RaceName</td>
+                       <td>@race.CircuitName</td>
+                       <td>@race.Date</td>
+                       <td>@race.Country</td>
+                   </tr>
+               }
+            </tbody>
+        </table>
+        </div>
+    }
+</div>
+
+@if(!string.IsNullOrEmpty(Error))
+{
+    <p>@Error</p>
+}
+
+@code {
+    public List<RaceItem> Races { get; set; }
+    public string Error { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Races = await RaceService.GetCurrentSeasonRaces();
+        }
+        catch(Exception e)
+        {
+            Error = e.Message;
+        }
+
+    }
+
+    protected async Task GoToRaceUrl(string url)
+    {
+        await jsRuntime.InvokeAsync<object>("open", url, "_blank");
+    }
+}

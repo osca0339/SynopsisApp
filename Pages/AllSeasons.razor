@@ -1,0 +1,82 @@
+﻿@page "/allseasons"
+@using SynopsisApp.Models
+@using SynopsisApp.Services
+@inject IRacesService RaceService
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Current Season</PageTitle>
+
+<div>
+    <h1 class="text-light">Search for a specific season:</h1>
+    <input value="@Year" @onchange="@(e => { Year = e.Value.ToString();})"/>
+    <button class="btn btn-primary" @onclick="OnSubmitYear">Search</button>
+
+    @if(Races == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <div>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Race Name</th>
+                    <th scope="col">Circuit</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var race in Races)
+               {
+                   <tr @onclick="() => GoToRaceUrl(race.Url)">
+                       <td>@race.RaceName</td>
+                       <td>@race.CircuitName</td>
+                       <td>@race.Date</td>
+                       <td>@race.Country</td>
+                   </tr>
+               }
+            </tbody>
+        </table>
+        </div>
+    }
+</div>
+
+@if(!string.IsNullOrEmpty(Error))
+{
+    <p>@Error</p>
+}
+
+
+@code {
+    public List<RaceItem> Races { get; set; }
+    public string Error { get; set; }
+    public string Year { get; set; } = "2022";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Races = await RaceService.SearchSeasonByYear(Year);
+        }
+        catch(Exception e)
+        {
+            Error = e.Message;
+        }
+    }
+
+    protected async void OnSubmitYear(MouseEventArgs args)
+    {
+        Races = await RaceService.SearchSeasonByYear(Year);
+        Year = string.Empty;
+        StateHasChanged();
+    }
+
+    protected async Task GoToRaceUrl(string url)
+    {
+        await jsRuntime.InvokeAsync<object>("open", url, "_blank");
+    }
+
+    
+}
